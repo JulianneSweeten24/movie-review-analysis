@@ -1,1 +1,26 @@
+#Part 1) Conducting Welch's Two-Sample t-test to assess whether there's a significant difference in mean length between reviews labelled "positive" #and reviews labelled "negative."
+
+#null hypothesis: true difference in means between group negative and group positive is 0
+$H_0: \mu_{\text{negative}} = \mu_{\text{positive}}$
+
+#alternative hypothesis: true difference in means between group negative and group positive is greater than 0
+$H_A: \mu_{\text{negative}} > \mu_{\text{positive}}$
+
+Movie_Data<-read.csv("Movie_Data.csv")
+
+#Loading in tools
+library("tidyverse")
+
+#creating a new variable with review length
+Movie_Data2<-Movie_Data|>
+  select(review, sentiment)|>
+  mutate(review_length=str_length(review))
+
+#Welch's Two-Sample T-Test (not pooled and one-sided)
+t.test(review_length~sentiment,data=Movie_Data2, var.equal=FALSE, alternative="greater")
+
+
+
+
+
 
